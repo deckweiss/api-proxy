@@ -1,9 +1,9 @@
-import { RequestEvent, type Handle } from '@sveltejs/kit';
+import { type RequestEvent, type Handle } from '@sveltejs/kit';
 
 interface Options {
     apiUrl: string;
     basePath: string;
-    middleware?: (event: RequestEvent) => void;
+    middleware?: (event: RequestEvent) => void | Promise<void>;
 }
 
 export function createApiProxy(options: Options) {
@@ -19,7 +19,7 @@ export function createApiProxy(options: Options) {
             event.request.headers.delete('connection');
 
             if (options.middleware) {
-                options.middleware(event);
+                await options.middleware(event);
             }
 
             return fetch(proxiedUrl.toString(), {
