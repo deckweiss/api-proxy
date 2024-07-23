@@ -1,5 +1,5 @@
 {
-    "name": "web-api-proxy",
+    "name": "@deckweiss/api-proxy",
     "version": "1.0.0",
     "scripts": {
         "dev": "vite dev",
