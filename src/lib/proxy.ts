@@ -26,7 +26,9 @@ export function createApiProxy(options: Options) {
                 // propagate the request method and body
                 body: event.request.body,
                 method: event.request.method,
-                headers: event.request.headers
+                headers: event.request.headers,
+                // @ts-ignore // needs to be set for nodeJS reasons... https://github.com/nodejs/node/issues/46221
+                duplex: 'half'
             }).catch((err) => {
                 console.log('Could not proxy API request: ', err);
                 throw err;
